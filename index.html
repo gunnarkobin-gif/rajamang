@@ -697,7 +697,8 @@
       mv.textContent=valueText(m,m.mine,h)+"  –  "+valueText(m,m.theirs,h);
       row.appendChild(mv);
       var res=document.createElement("div"); res.className="mres "+cls;
-      res.textContent = r===1?"rada sulle":(r===-1?"rada neile":(r===0?"poolitatud":"ootel"));
+      var us=m.mine.length>1?"meile":"sulle";
+      res.textContent = r===1?("rada "+us):(r===-1?"rada neile":(r===0?"poolitatud":"ootel"));
       row.appendChild(res);
       elMatchRows.appendChild(row);
     });
