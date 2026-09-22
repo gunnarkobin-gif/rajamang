@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Rajamängu skoorikaart</title>
-<meta name="description" content="Golfi rajamängu (match play) skoorikaart 18 rajale — mitu matši korraga, löögiedu ja kahesed tiimid.">
+<meta name="description" content="Golfi rajamängu (match play) skoorikaart 18 rajale — mitu matši korraga, matšipõhine löögiedu ja kahesed tiimid.">
 <meta name="theme-color" content="#EDF1EA" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0D1411" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -29,58 +29,34 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
   :root{
-    --bg:#EDF1EA;
-    --surface:#FFFFFF;
-    --surface-2:#F6F9F4;
-    --ink:#13251C;
-    --muted:#5E7266;
-    --faint:#8A9B90;
-    --line:#D5DED2;
-    --line-strong:#B9C6B7;
-    --accent:#1B6C49;
-    --accent-soft:#DCEBE1;
-    --flag:#BE4229;
-    --flag-soft:#F7E1DB;
-    --level:#8A6B22;
-    --level-soft:#F3E9D2;
+    --bg:#EDF1EA; --surface:#FFFFFF; --surface-2:#F6F9F4;
+    --ink:#13251C; --muted:#5E7266; --faint:#8A9B90;
+    --line:#D5DED2; --line-strong:#B9C6B7;
+    --accent:#1B6C49; --accent-soft:#DCEBE1;
+    --flag:#BE4229; --flag-soft:#F7E1DB;
+    --level:#8A6B22; --level-soft:#F3E9D2;
     --shadow:0 1px 2px rgba(19,37,28,.06), 0 8px 24px -16px rgba(19,37,28,.28);
     color-scheme:light;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --bg:#0D1411;
-      --surface:#151F1A;
-      --surface-2:#1B2721;
-      --ink:#E7EEE8;
-      --muted:#93A69B;
-      --faint:#6E8177;
-      --line:#26332C;
-      --line-strong:#39493F;
-      --accent:#4FC08A;
-      --accent-soft:#17352A;
-      --flag:#EE8B70;
-      --flag-soft:#3A211A;
-      --level:#D9B96A;
-      --level-soft:#33290F;
+      --bg:#0D1411; --surface:#151F1A; --surface-2:#1B2721;
+      --ink:#E7EEE8; --muted:#93A69B; --faint:#6E8177;
+      --line:#26332C; --line-strong:#39493F;
+      --accent:#4FC08A; --accent-soft:#17352A;
+      --flag:#EE8B70; --flag-soft:#3A211A;
+      --level:#D9B96A; --level-soft:#33290F;
       --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -18px rgba(0,0,0,.8);
       color-scheme:dark;
     }
   }
   :root[data-theme="dark"]{
-    --bg:#0D1411;
-    --surface:#151F1A;
-    --surface-2:#1B2721;
-    --ink:#E7EEE8;
-    --muted:#93A69B;
-    --faint:#6E8177;
-    --line:#26332C;
-    --line-strong:#39493F;
-    --accent:#4FC08A;
-    --accent-soft:#17352A;
-    --flag:#EE8B70;
-    --flag-soft:#3A211A;
-    --level:#D9B96A;
-    --level-soft:#33290F;
+    --bg:#0D1411; --surface:#151F1A; --surface-2:#1B2721;
+    --ink:#E7EEE8; --muted:#93A69B; --faint:#6E8177;
+    --line:#26332C; --line-strong:#39493F;
+    --accent:#4FC08A; --accent-soft:#17352A;
+    --flag:#EE8B70; --flag-soft:#3A211A;
+    --level:#D9B96A; --level-soft:#33290F;
     --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -18px rgba(0,0,0,.8);
     color-scheme:dark;
   }
@@ -89,235 +65,175 @@
   body{
     margin:0;background:var(--bg);color:var(--ink);
     font-family:"Archivo","Helvetica Neue",Arial,sans-serif;
-    font-size:15px;line-height:1.45;
-    -webkit-text-size-adjust:100%;
+    font-size:15px;line-height:1.45;-webkit-text-size-adjust:100%;
   }
   *{box-sizing:border-box}
   button{font-family:inherit;color:inherit}
   .wrap{max-width:600px;margin:0 auto;padding:0 16px;padding-block:0 40px}
 
-  /* ---- top bar ---- */
   .bar{
     position:sticky;top:env(safe-area-inset-top,0px);z-index:20;
     background:color-mix(in srgb,var(--bg) 88%,transparent);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
     margin:0 -16px;padding:10px 16px 12px;
   }
   .bar-top{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
   .brand{font-family:"Instrument Serif",Georgia,serif;font-size:23px;line-height:1.1;letter-spacing:.2px}
-  .eyebrow{
-    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
-    text-transform:uppercase;letter-spacing:.14em;color:var(--faint);
-  }
-  .linkbtn{
-    background:none;border:0;padding:4px 0;cursor:pointer;
-    font-size:12.5px;font-weight:600;color:var(--muted);
-    text-decoration:underline;text-decoration-color:var(--line-strong);text-underline-offset:3px;
-  }
+  .eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+    text-transform:uppercase;letter-spacing:.14em;color:var(--faint)}
+  .linkbtn{background:none;border:0;padding:4px 0;cursor:pointer;font-size:12.5px;font-weight:600;
+    color:var(--muted);text-decoration:underline;text-decoration-color:var(--line-strong);text-underline-offset:3px}
   .linkbtn:hover{color:var(--accent)}
 
-  /* ---- match status strip ---- */
   .statuses{display:flex;flex-direction:column;gap:6px;margin-top:10px}
-  .status{
-    display:flex;align-items:center;gap:10px;
-    background:var(--surface);border:1px solid var(--line);border-radius:10px;
-    padding:8px 11px;box-shadow:var(--shadow);
-  }
+  .status{display:flex;align-items:center;gap:10px;background:var(--surface);
+    border:1px solid var(--line);border-radius:10px;padding:8px 11px;box-shadow:var(--shadow)}
   .status .who{font-size:13px;font-weight:600;flex:1;min-width:0}
   .status .who small{display:block;font-weight:400;color:var(--faint);font-size:11px}
-  .state{
-    font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;
-    font-size:14px;font-weight:600;padding:3px 9px;border-radius:999px;white-space:nowrap;
-  }
+  .state{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;
+    font-size:14px;font-weight:600;padding:3px 9px;border-radius:999px;white-space:nowrap}
   .state.up{background:var(--accent-soft);color:var(--accent)}
   .state.down{background:var(--flag-soft);color:var(--flag)}
   .state.even{background:var(--level-soft);color:var(--level)}
   .state.done{border:1px dashed currentColor}
   .thru{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;color:var(--faint);white-space:nowrap}
 
-  /* ---- sections ---- */
   section{margin-top:22px}
-  h2{
-    font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:500;
-    font-size:11px;text-transform:uppercase;letter-spacing:.14em;color:var(--faint);
-    margin:0 0 9px;
-  }
+  h2{font-family:"IBM Plex Mono",ui-monospace,monospace;font-weight:500;font-size:11px;
+    text-transform:uppercase;letter-spacing:.14em;color:var(--faint);margin:0 0 9px}
 
-  /* ---- hole nav ---- */
   .holenav{display:flex;align-items:center;gap:10px;margin-bottom:12px}
   .holenav .num{font-family:"Instrument Serif",Georgia,serif;font-size:34px;line-height:1;flex:1}
   .holenav .num b{font-family:inherit;font-weight:400}
-  .holenav .num span{font-size:13px;font-family:"Archivo",sans-serif;color:var(--faint);display:block;letter-spacing:.02em}
-  .nav{
-    width:44px;height:44px;flex:none;border-radius:12px;cursor:pointer;
+  .holenav .num span{font-size:13px;font-family:"Archivo",sans-serif;color:var(--faint);display:block}
+  .nav{width:44px;height:44px;flex:none;border-radius:12px;cursor:pointer;
     border:1px solid var(--line-strong);background:var(--surface);
-    font-size:18px;line-height:1;display:grid;place-items:center;
-  }
+    font-size:18px;line-height:1;display:grid;place-items:center}
   .nav:hover{border-color:var(--accent);color:var(--accent)}
   .nav:disabled{opacity:.35;cursor:default}
 
-  /* ---- player cards ---- */
-  .teamhead{
-    display:flex;align-items:center;gap:8px;margin:14px 0 7px;
+  .teamhead{display:flex;align-items:center;gap:8px;margin:14px 0 7px;
     font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
-    text-transform:uppercase;letter-spacing:.12em;color:var(--faint);
-  }
+    text-transform:uppercase;letter-spacing:.12em;color:var(--faint)}
   .teamhead:first-child{margin-top:0}
   .teamhead .rule{flex:1;height:1px;background:var(--line)}
-  .teamhead .agg{
-    font-variant-numeric:tabular-nums;letter-spacing:0;text-transform:none;font-size:12px;
-    padding:2px 8px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line);color:var(--muted);
-  }
+  .teamhead .agg{font-variant-numeric:tabular-nums;letter-spacing:0;text-transform:none;font-size:12px;
+    padding:2px 8px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line);color:var(--muted)}
   .teamhead.us .agg{background:var(--accent-soft);border-color:transparent;color:var(--accent)}
   .teamhead.them .agg{background:var(--flag-soft);border-color:transparent;color:var(--flag)}
-  .pcard{
-    background:var(--surface);border:1px solid var(--line);border-radius:14px;
-    padding:11px 12px 12px;margin-bottom:10px;box-shadow:var(--shadow);
-  }
+
+  .pcard{background:var(--surface);border:1px solid var(--line);border-radius:14px;
+    padding:11px 12px 12px;margin-bottom:10px;box-shadow:var(--shadow)}
   .pcard.me{border-left:3px solid var(--accent)}
   .pcard.us{border-left:3px solid var(--accent)}
   .pcard.them{border-left:3px solid var(--flag)}
   .phead{display:flex;align-items:center;gap:8px;margin-bottom:9px;flex-wrap:wrap}
   .pname{font-weight:600;font-size:14.5px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .tag{
-    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.06em;
+  .tag{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.06em;
     text-transform:uppercase;padding:2px 6px;border-radius:5px;background:var(--surface-2);
-    color:var(--muted);border:1px solid var(--line);white-space:nowrap;
-  }
+    color:var(--muted);border:1px solid var(--line);white-space:nowrap}
   .tag.edu{background:var(--level-soft);color:var(--level);border-color:transparent}
   .tag.counts{background:var(--accent);color:var(--surface);border-color:transparent}
-  .net{
-    font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;
-    font-size:12px;color:var(--faint);white-space:nowrap;
-  }
+  .gross{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;
+    font-size:12px;color:var(--faint);white-space:nowrap}
   .chips{display:flex;gap:5px}
-  .chip{
-    flex:1;min-width:0;height:42px;border-radius:9px;cursor:pointer;
+  .chip{flex:1;min-width:0;height:42px;border-radius:9px;cursor:pointer;
     border:1px solid var(--line-strong);background:var(--surface-2);
     font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:15px;font-weight:500;
-    font-variant-numeric:tabular-nums;padding:0;
-  }
+    font-variant-numeric:tabular-nums;padding:0}
   .chip:hover{border-color:var(--accent)}
   .chip.on{background:var(--accent);border-color:var(--accent);color:var(--surface)}
-  .chip.more{font-size:12px;letter-spacing:.02em}
+  .chip.more{font-size:12px}
 
-  /* ---- hole verdicts ---- */
-  .verdicts{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
-  .verdict{
-    font-size:12px;padding:5px 9px;border-radius:8px;background:var(--surface-2);
-    border:1px solid var(--line);color:var(--muted);
-  }
-  .verdict b{font-weight:600}
-  .verdict.win{background:var(--accent-soft);border-color:transparent;color:var(--accent)}
-  .verdict.loss{background:var(--flag-soft);border-color:transparent;color:var(--flag)}
-  .verdict.half{background:var(--level-soft);border-color:transparent;color:var(--level)}
+  /* per-hole match rows */
+  .mrow{display:flex;align-items:center;gap:10px;background:var(--surface);
+    border:1px solid var(--line);border-left-width:3px;border-radius:12px;
+    padding:9px 11px;margin-bottom:8px;box-shadow:var(--shadow)}
+  .mrow.win{border-left-color:var(--accent)}
+  .mrow.loss{border-left-color:var(--flag)}
+  .mrow.half{border-left-color:var(--level)}
+  .mrow.idle{border-left-color:var(--line-strong)}
+  .mrow .ml{flex:1;min-width:0}
+  .mrow .mt{font-size:13.5px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .mrow .ms{font-size:11.5px;color:var(--faint);display:block}
+  .mrow .mv{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;
+    font-size:15px;font-weight:600;white-space:nowrap}
+  .mrow .mres{font-size:11px;font-weight:600;padding:3px 8px;border-radius:999px;white-space:nowrap}
+  .mres.win{background:var(--accent-soft);color:var(--accent)}
+  .mres.loss{background:var(--flag-soft);color:var(--flag)}
+  .mres.half{background:var(--level-soft);color:var(--level)}
+  .mres.idle{background:var(--surface-2);color:var(--faint)}
 
-  /* ---- scorecard table ---- */
   .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:var(--shadow)}
-  table{border-collapse:collapse;width:100%;font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;font-size:12.5px}
+  table{border-collapse:collapse;width:100%;font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-variant-numeric:tabular-nums;font-size:12.5px}
   th,td{padding:6px 0;text-align:center;min-width:26px;border-bottom:1px solid var(--line)}
   thead th{color:var(--faint);font-weight:500;font-size:10.5px;letter-spacing:.04em}
   tbody tr:last-child td,tbody tr:last-child th{border-bottom:0}
-  th.rowhead{
-    position:sticky;left:0;z-index:2;background:var(--surface);
-    text-align:left;padding:6px 10px;min-width:98px;font-family:"Archivo",sans-serif;
-    font-size:12px;font-weight:600;border-right:1px solid var(--line);
-  }
+  th.rowhead{position:sticky;left:0;z-index:2;background:var(--surface);text-align:left;padding:6px 10px;
+    min-width:104px;font-family:"Archivo",sans-serif;font-size:12px;font-weight:600;border-right:1px solid var(--line)}
   thead th.rowhead{color:var(--faint);font-weight:500}
   tr.us th.rowhead{box-shadow:inset 3px 0 0 var(--accent)}
   tr.them th.rowhead{box-shadow:inset 3px 0 0 var(--flag)}
   td.cur{background:var(--surface-2);font-weight:600}
   td.empty{color:var(--line-strong)}
-  td.counts span{
-    display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;
-    background:var(--accent);color:var(--surface);font-weight:600;
-  }
-  tr.resline th.rowhead{font-weight:500;color:var(--muted)}
+  td.counts span{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;
+    background:var(--accent);color:var(--surface);font-weight:600}
+  tr.resline th.rowhead,tr.aggline th.rowhead{font-weight:500;color:var(--muted)}
   tr.resline td{font-size:11px;font-weight:600}
-  tr.aggline th.rowhead{font-weight:500;color:var(--muted)}
   tr.aggline td{font-size:11.5px;color:var(--muted)}
-  .r-w{color:var(--accent)}
-  .r-l{color:var(--flag)}
-  .r-h{color:var(--level)}
+  .r-w{color:var(--accent)} .r-l{color:var(--flag)} .r-h{color:var(--level)}
   td.tot,th.tot{border-left:1px solid var(--line-strong);font-weight:600;min-width:36px}
 
-  /* ---- setup ---- */
-  .panel{
-    background:var(--surface);border:1px solid var(--line);border-radius:16px;
-    padding:16px;box-shadow:var(--shadow);
-  }
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--shadow)}
   .field{margin-bottom:14px}
   .field:last-child{margin-bottom:0}
-  label.lbl{
-    display:block;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
-    text-transform:uppercase;letter-spacing:.12em;color:var(--faint);margin-bottom:6px;
-  }
-  input[type=text]{
-    width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--line-strong);
-    background:var(--surface-2);color:var(--ink);font-family:inherit;font-size:15px;
-  }
+  label.lbl{display:block;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+    text-transform:uppercase;letter-spacing:.12em;color:var(--faint);margin-bottom:6px}
+  input[type=text]{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--line-strong);
+    background:var(--surface-2);color:var(--ink);font-family:inherit;font-size:15px}
   input[type=text]:focus-visible{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
   .orow{display:flex;gap:8px;align-items:center;margin-bottom:8px}
   .orow input{flex:1}
-  .toggle{
-    display:flex;align-items:center;gap:7px;cursor:pointer;user-select:none;
-    padding:9px 11px;border-radius:10px;border:1px solid var(--line-strong);background:var(--surface-2);
-    font-size:13px;white-space:nowrap;
-  }
-  .toggle input{accent-color:var(--accent);width:17px;height:17px;margin:0}
-  .toggle.on{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:600}
-  .icbtn{
-    width:38px;height:38px;flex:none;border-radius:10px;border:1px solid var(--line-strong);
-    background:var(--surface-2);cursor:pointer;font-size:16px;line-height:1;display:grid;place-items:center;
-  }
+  .icbtn{width:38px;height:38px;flex:none;border-radius:10px;border:1px solid var(--line-strong);
+    background:var(--surface-2);cursor:pointer;font-size:16px;line-height:1;display:grid;place-items:center}
   .icbtn:hover{border-color:var(--flag);color:var(--flag)}
-  .modes{display:flex;flex-direction:column;gap:8px}
-  .mode{
-    display:flex;gap:10px;align-items:flex-start;cursor:pointer;
-    padding:11px 12px;border-radius:12px;border:1px solid var(--line-strong);background:var(--surface-2);
-  }
-  .mode input{accent-color:var(--accent);margin:2px 0 0;width:17px;height:17px;flex:none}
-  .mode.on{border-color:var(--accent);background:var(--accent-soft)}
-  .mode .mt{font-weight:600;font-size:13.5px}
-  .mode .md{font-size:12px;color:var(--muted);display:block;margin-top:2px}
-  .mode.on .md{color:var(--accent);opacity:.85}
+
+  .mcard{border:1px solid var(--line-strong);border-radius:12px;background:var(--surface-2);
+    padding:10px 12px;margin-bottom:8px}
+  .mcard.on{border-color:var(--accent);background:var(--accent-soft)}
+  .mhead{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+  .mhead input{accent-color:var(--accent);margin:3px 0 0;width:17px;height:17px;flex:none}
+  .mhead .t{font-weight:600;font-size:13.5px}
+  .mhead .d{font-size:12px;color:var(--muted);display:block;margin-top:2px}
+  .mcard.on .mhead .d{color:var(--accent);opacity:.85}
+  .mbody{margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
+  .slabel{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--faint);margin-bottom:6px}
   .picks{display:flex;gap:6px;flex-wrap:wrap}
-  .pick{
-    padding:9px 13px;border-radius:999px;cursor:pointer;font-size:13px;font-weight:600;
-    border:1px solid var(--line-strong);background:var(--surface-2);
-  }
+  .pick{padding:8px 12px;border-radius:999px;cursor:pointer;font-size:13px;font-weight:600;
+    border:1px solid var(--line-strong);background:var(--surface);color:var(--ink)}
   .pick.on{background:var(--accent);border-color:var(--accent);color:var(--surface)}
-  .teamsline{
-    margin-top:8px;font-size:12.5px;color:var(--muted);
-    font-family:"IBM Plex Mono",ui-monospace,monospace;
-  }
-  .btn{
-    width:100%;padding:13px;border-radius:12px;border:0;cursor:pointer;
-    background:var(--accent);color:var(--surface);font-weight:700;font-size:15px;letter-spacing:.01em;
-  }
+  .pick.edu{background:var(--level-soft);border-color:var(--level);color:var(--level)}
+  .teamsline{margin-top:8px;font-size:12.5px;color:var(--muted);font-family:"IBM Plex Mono",ui-monospace,monospace}
+
+  .btn{width:100%;padding:13px;border-radius:12px;border:0;cursor:pointer;background:var(--accent);
+    color:var(--surface);font-weight:700;font-size:15px}
   .btn.ghost{background:var(--surface);color:var(--ink);border:1px solid var(--line-strong);font-weight:600}
   .btn.small{padding:10px;font-size:13.5px}
   .btnrow{display:flex;gap:8px;margin-top:14px}
   .hint{font-size:12px;color:var(--faint);margin:8px 0 0}
-  .addmore{
-    background:none;border:1px dashed var(--line-strong);border-radius:10px;
-    padding:9px;width:100%;cursor:pointer;font-size:13px;color:var(--muted);font-weight:600;
-  }
+  .warn{font-size:12.5px;color:var(--flag);margin:8px 0 0;font-weight:600}
+  .addmore{background:none;border:1px dashed var(--line-strong);border-radius:10px;padding:9px;width:100%;
+    cursor:pointer;font-size:13px;color:var(--muted);font-weight:600}
   .addmore:hover{border-color:var(--accent);color:var(--accent)}
-  .banner{
-    margin-top:12px;padding:11px 13px;border-radius:12px;
-    background:var(--accent-soft);color:var(--accent);font-size:13.5px;font-weight:600;
-    display:flex;gap:8px;align-items:baseline;
-  }
+  .banner{margin-top:12px;padding:11px 13px;border-radius:12px;background:var(--accent-soft);color:var(--accent);
+    font-size:13.5px;font-weight:600;display:flex;gap:8px;align-items:baseline}
   .banner.loss{background:var(--flag-soft);color:var(--flag)}
   .banner.half{background:var(--level-soft);color:var(--level)}
   :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
   @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
-  @media (max-width:380px){
-    .chip{height:38px;font-size:14px}
-    .holenav .num{font-size:30px}
-  }
+  @media (max-width:380px){ .chip{height:38px;font-size:14px} .holenav .num{font-size:30px} }
 </style>
 
 </head>
@@ -334,41 +250,37 @@
     <div class="statuses" id="statuses"></div>
   </div>
 
-  <!-- SETUP -->
   <section id="setupView">
-    <h2>Mängu seadistus</h2>
+    <h2>Mängijad</h2>
     <div class="panel">
       <div class="field">
         <label class="lbl" for="meName">Sinu nimi</label>
         <input type="text" id="meName" value="Gunnar" autocomplete="off">
       </div>
-
       <div class="field">
-        <label class="lbl">Teised mängijad ja löögiedu</label>
+        <label class="lbl">Kaasmängijad</label>
         <div id="oppRows"></div>
         <button class="addmore" id="addOpp" type="button">+ Lisa mängija</button>
-        <p class="hint">„+1 rajal“ tähendab, et see mängija saab igal rajal ühe löögi edu — tema netoskoor on löögid miinus üks.</p>
       </div>
+    </div>
 
-      <div class="field" id="modeField" hidden>
-        <label class="lbl">Mängu vormid — võid valida mitu</label>
-        <div class="modes" id="modes"></div>
-      </div>
-
+    <h2 style="margin-top:22px">Matšid — märgi, mida mängite</h2>
+    <div class="panel">
+      <div id="matchCards"></div>
       <div class="field" id="partnerField" hidden>
-        <label class="lbl">Sinu paariline</label>
+        <label class="lbl">Sinu paariline tiimimängus</label>
         <div class="picks" id="partnerPicks"></div>
         <div class="teamsline" id="teamsLine"></div>
       </div>
-
-      <button class="btn" id="startBtn" type="button">Alusta mängu</button>
+      <p class="hint">Löögiedu käib matši kaupa: puuduta nime, et anda talle sellel matšil +1 või +2 lööki igal rajal. Sama mängija võib ühes matšis edu saada ja teises mitte.</p>
+      <p class="warn" id="noMatch" hidden>Märgi vähemalt üks matš.</p>
+      <div class="btnrow"><button class="btn" id="startBtn" type="button">Alusta mängu</button></div>
       <div class="btnrow" id="resumeRow" hidden>
         <button class="btn ghost small" id="backBtn" type="button">Tagasi mängu juurde</button>
       </div>
     </div>
   </section>
 
-  <!-- PLAY -->
   <section id="playView" hidden>
     <div class="holenav">
       <button class="nav" id="prevHole" type="button" aria-label="Eelmine rada">‹</button>
@@ -376,7 +288,9 @@
       <button class="nav" id="nextHole" type="button" aria-label="Järgmine rada">›</button>
     </div>
     <div id="players"></div>
-    <div class="verdicts" id="verdicts"></div>
+
+    <h2 style="margin-top:22px">Selle raja matšid</h2>
+    <div id="matchRows"></div>
     <div id="banners"></div>
 
     <h2 style="margin-top:24px">Kaart</h2>
@@ -392,142 +306,228 @@
 <script>
 (function(){
   "use strict";
-  var HOLES=18, KEY="rajamang.v2";
+  var HOLES=18, KEY="rajamang.v3", OLDKEY="rajamang.v2";
   var S=null;
 
   function blank(){
-    return {me:"Gunnar", opps:[{name:"Aaron",stroke:false}], modes:["individual"],
-            partner:1, scores:[], hole:0, started:false};
+    return {
+      me:"Gunnar",
+      opps:[{name:"Aaron"}],
+      partner:1,
+      m:{ ind:{"1":{on:true,str:{}}}, best:{on:false,str:{}},
+          pbest:{on:false,str:{}}, psum:{on:false,str:{}} },
+      scores:[], hole:0, started:false
+    };
   }
-  function emptyScores(n){
-    var a=[],i,j; for(i=0;i<n;i++){ a[i]=[]; for(j=0;j<HOLES;j++) a[i][j]=null; } return a;
-  }
+  function emptyScores(n){ var a=[],i,j; for(i=0;i<n;i++){ a[i]=[]; for(j=0;j<HOLES;j++) a[i][j]=null; } return a; }
 
   /* ---------- storage ---------- */
   function save(){ try{ localStorage.setItem(KEY,JSON.stringify(S)); }catch(e){} }
   function load(){
     try{
-      var raw=localStorage.getItem(KEY); if(!raw) return null;
-      var o=JSON.parse(raw);
-      if(!o||!o.opps||!o.scores) return null;
-      return o;
-    }catch(e){ return null; }
+      var raw=localStorage.getItem(KEY);
+      if(raw){ var o=JSON.parse(raw); if(o&&o.opps&&o.m) return o; }
+      var old=localStorage.getItem(OLDKEY);
+      if(old) return migrate(JSON.parse(old));
+    }catch(e){}
+    return null;
   }
+  function migrate(o){
+    if(!o||!o.opps) return null;
+    var modes=o.modes||[o.mode||"individual"], m={ind:{},best:{on:false,str:{}},
+      pbest:{on:false,str:{}},psum:{on:false,str:{}}}, i, str={};
+    o.opps.forEach(function(op,i){ if(op&&op.stroke) str[i+1]=1; });
+    for(i=1;i<=o.opps.length;i++){
+      var s={}; if(str[i]) s[i]=1;
+      m.ind[String(i)]={on:modes.indexOf("individual")>-1, str:s};
+    }
+    m.best={on:modes.indexOf("bestball")>-1, str:copy(str)};
+    m.pbest={on:modes.indexOf("pairs-best")>-1, str:copy(str)};
+    m.psum={on:modes.indexOf("pairs-sum")>-1, str:copy(str)};
+    return {me:o.me||"Gunnar", opps:o.opps.map(function(op){return {name:op.name||""};}),
+            partner:o.partner||1, m:m, scores:o.scores||[], hole:o.hole||0, started:!!o.started};
+  }
+  function copy(o){ var r={},k; for(k in o) if(o.hasOwnProperty(k)) r[k]=o[k]; return r; }
 
   /* ---------- model ---------- */
   function names(){ return [S.me].concat(S.opps.map(function(o){return o.name;})); }
-  function strokeFor(p){ return p===0?0:(S.opps[p-1].stroke?1:0); }
+  function pname(p){ var n=names(); return n[p]||(p===0?"Sina":"Mängija "+p); }
   function gross(p,h){ var r=S.scores[p]; return r?r[h]:null; }
-  function net(p,h){ var g=gross(p,h); return g==null?null:g-strokeFor(p); }
+  function strOf(cfg,p){ return (cfg&&cfg.str&&cfg.str[p])||0; }
+  function netIn(cfg,p,h){ var g=gross(p,h); return g==null?null:g-strOf(cfg,p); }
 
-  var MODE_ORDER=["pairs-best","pairs-sum","bestball","individual"];
-  function activeModes(){
-    var n=S.opps.length, want=(S.modes||[]);
-    var ms=MODE_ORDER.filter(function(m){
-      if(want.indexOf(m)<0) return false;
-      if(m==="individual") return true;
-      if(m==="bestball") return n>=2;
-      return n===3;
-    });
-    if(!ms.length) ms=["individual"];
-    return ms;
+  function indCfg(i){
+    var k=String(i);
+    if(!S.m.ind[k]) S.m.ind[k]={on:false,str:{}};
+    return S.m.ind[k];
   }
-  function hasMode(m){ return activeModes().indexOf(m)>-1; }
-  function isPairs(){ return hasMode("pairs-best")||hasMode("pairs-sum"); }
-  function partnerIdx(){ var p=S.partner; return (p>=1 && p<=S.opps.length)?p:1; }
-  function myTeam(){ return isPairs()?[0,partnerIdx()]:[0]; }
+  function partnerIdx(){ var p=S.partner; return (p>=1&&p<=S.opps.length)?p:1; }
+  function myTeam(){ return [0,partnerIdx()]; }
   function theirTeam(){
     var out=[],i;
-    for(i=1;i<=S.opps.length;i++) if(!(isPairs() && i===partnerIdx())) out.push(i);
+    for(i=1;i<=S.opps.length;i++) if(i!==partnerIdx()) out.push(i);
     return out;
   }
+  function allOpps(){ var out=[],i; for(i=1;i<=S.opps.length;i++) out.push(i); return out; }
 
-  function sideValue(idxs,h,agg){
+  function sideVal(cfg,idxs,h,agg){
     var sum=0,best=null,i,v;
     for(i=0;i<idxs.length;i++){
-      v=net(idxs[i],h); if(v==null) return null;
+      v=netIn(cfg,idxs[i],h); if(v==null) return null;
       sum+=v; if(best==null||v<best) best=v;
     }
     return agg==="sum"?sum:best;
   }
-  function countingIdxs(idxs,h){
-    var best=sideValue(idxs,h,"best"), out=[], i;
+  function counting(cfg,idxs,h){
+    var best=sideVal(cfg,idxs,h,"best"), out=[], i;
     if(best==null) return [];
-    for(i=0;i<idxs.length;i++) if(net(idxs[i],h)===best) out.push(idxs[i]);
+    for(i=0;i<idxs.length;i++) if(netIn(cfg,idxs[i],h)===best) out.push(idxs[i]);
     return out;
   }
 
-  function matchState(mine,theirs,agg,label,sub){
+  function strokeNote(cfg,idxs){
+    var parts=[],i,s;
+    for(i=0;i<idxs.length;i++){ s=strOf(cfg,idxs[i]); if(s) parts.push(pname(idxs[i])+" +"+s); }
+    return parts.length?parts.join(", ")+" rajal":"ilma eduta";
+  }
+
+  function build(cfg,kind,mine,theirs,agg,label){
     var per=[],diff=0,played=0,h,a,b,r,stop=false;
     for(h=0;h<HOLES;h++){
       if(stop){ per[h]=null; continue; }
-      a=sideValue(mine,h,agg); b=sideValue(theirs,h,agg);
+      a=sideVal(cfg,mine,h,agg); b=sideVal(cfg,theirs,h,agg);
       if(a==null||b==null){ stop=true; per[h]=null; continue; }
-      r = a<b?1:(a>b?-1:0);
-      per[h]=r; diff+=r; played++;
+      r=a<b?1:(a>b?-1:0); per[h]=r; diff+=r; played++;
     }
     var remaining=HOLES-played, decided=Math.abs(diff)>remaining, result=null, text, cls;
     if(diff>0){ text=diff+" üleval"; cls="up"; }
     else if(diff<0){ text=(-diff)+" all"; cls="down"; }
     else { text="viigis"; cls="even"; }
-    if(decided){
-      result=(diff>0?"Võit ":"Kaotus ")+Math.abs(diff)+(remaining>0?"&"+remaining:" üleval");
-    } else if(remaining===0){
-      result = diff===0?"Viik pärast 18 rada":(diff>0?"Võit ":"Kaotus ")+Math.abs(diff)+" üleval";
+    if(decided){ result=(diff>0?"Võit ":"Kaotus ")+Math.abs(diff)+(remaining>0?"&"+remaining:" üleval"); }
+    else if(remaining===0){
+      result=diff===0?"Viik pärast 18 rada":(diff>0?"Võit ":"Kaotus ")+Math.abs(diff)+" üleval";
       decided=true;
     }
-    var dormie=!decided&&remaining>0&&diff!==0&&Math.abs(diff)===remaining;
-    return {mine:mine,theirs:theirs,agg:agg,label:label,sub:sub,per:per,diff:diff,
-            played:played,remaining:remaining,decided:decided,result:result,
-            text:text,cls:cls,dormie:dormie};
+    return {cfg:cfg,kind:kind,mine:mine,theirs:theirs,agg:agg,label:label,
+            sub:strokeNote(cfg,mine.concat(theirs)),per:per,diff:diff,played:played,
+            remaining:remaining,decided:decided,result:result,text:text,cls:cls,
+            dormie:!decided&&remaining>0&&diff!==0&&Math.abs(diff)===remaining};
   }
 
-  function allMatches(){
-    var n=names(), out=[];
-    activeModes().forEach(function(m){
-      var st,i;
-      if(m==="pairs-best"||m==="pairs-sum"){
-        var mine=myTeam(), theirs=theirTeam(), agg=(m==="pairs-sum"?"sum":"best");
-        st=matchState(mine,theirs,agg,
-          mine.map(function(i){return n[i];}).join(" + ")+" vs "+theirs.map(function(i){return n[i];}).join(" + "),
-          agg==="sum"?"tiimid · löökide summa rajal":"tiimid · parim skoor rajal");
-        st.kind=m; out.push(st);
-      } else if(m==="bestball"){
-        var idxs=[]; for(i=1;i<n.length;i++) idxs.push(i);
-        st=matchState([0],idxs,"best",
-          "Sina vs "+idxs.map(function(i){return n[i];}).join(" + "),"nende parim skoor rajal");
-        st.kind=m; out.push(st);
-      } else {
-        for(i=1;i<n.length;i++){
-          st=matchState([0],[i],"best","Sina vs "+n[i],
-            S.opps[i-1].stroke?"mees mehe vastu · +1 lööki rajal":"mees mehe vastu");
-          st.kind="individual"; out.push(st);
-        }
-      }
-    });
+  function pairsOK(){ return S.opps.length===3; }
+  function bestOK(){ return S.opps.length>=2; }
+
+  function matches(){
+    var n=names(), out=[], i;
+    if(pairsOK()){
+      if(S.m.pbest.on) out.push(build(S.m.pbest,"pbest",myTeam(),theirTeam(),"best",
+        myTeam().map(pname).join(" + ")+" vs "+theirTeam().map(pname).join(" + ")+" · parim"));
+      if(S.m.psum.on) out.push(build(S.m.psum,"psum",myTeam(),theirTeam(),"sum",
+        myTeam().map(pname).join(" + ")+" vs "+theirTeam().map(pname).join(" + ")+" · summa"));
+    }
+    if(bestOK() && S.m.best.on) out.push(build(S.m.best,"best",[0],allOpps(),"best",
+      "Sina vs "+allOpps().map(pname).join(" + ")+" · nende parim"));
+    for(i=1;i<=S.opps.length;i++){
+      if(indCfg(i).on) out.push(build(indCfg(i),"ind",[0],[i],"best","Sina vs "+pname(i)));
+    }
     return out;
   }
-
+  function anyMatch(){ return matches().length>0; }
+  function teamGame(){ return pairsOK() && (S.m.pbest.on||S.m.psum.on); }
   function displayOrder(){
-    var i,out;
-    if(isPairs()){
-      out=myTeam().slice();
-      theirTeam().forEach(function(i){ out.push(i); });
-      return out;
-    }
-    out=[]; for(i=0;i<=S.opps.length;i++) out.push(i);
+    var out=[],i;
+    if(teamGame()){ out=myTeam().slice(); theirTeam().forEach(function(i){ out.push(i); }); return out; }
+    for(i=0;i<=S.opps.length;i++) out.push(i);
     return out;
   }
   function esc(s){ return String(s).replace(/[&<>]/g,function(c){return c==="&"?"&amp;":c==="<"?"&lt;":"&gt;";}); }
-  function pname(p){ var n=names(); return n[p]||(p===0?"Sina":"Mängija "+p); }
 
-  /* ---------- setup view ---------- */
+  /* ---------- setup ---------- */
   var elOppRows=document.getElementById("oppRows");
-  var elModes=document.getElementById("modes");
-  var elModeField=document.getElementById("modeField");
+  var elMatchCards=document.getElementById("matchCards");
   var elPartnerField=document.getElementById("partnerField");
   var elPartnerPicks=document.getElementById("partnerPicks");
   var elTeamsLine=document.getElementById("teamsLine");
+
+  function strokePicks(cfg,idxs){
+    var wrap=document.createElement("div");
+    var lab=document.createElement("div"); lab.className="slabel"; lab.textContent="Löögiedu rajal";
+    wrap.appendChild(lab);
+    var row=document.createElement("div"); row.className="picks";
+    idxs.forEach(function(p){
+      var b=document.createElement("button"); b.type="button";
+      var s=strOf(cfg,p);
+      b.className="pick"+(s?" edu":"");
+      b.textContent=pname(p)+(s?" +"+s:" +0");
+      b.addEventListener("click",function(){
+        var cur=strOf(cfg,p), next=(cur+1)%3;
+        if(next) cfg.str[p]=next; else delete cfg.str[p];
+        save(); renderMatchCards(); renderStatuses();
+      });
+      row.appendChild(b);
+    });
+    wrap.appendChild(row);
+    return wrap;
+  }
+
+  function matchCard(cfg,title,desc,idxs){
+    var card=document.createElement("div"); card.className="mcard"+(cfg.on?" on":"");
+    var head=document.createElement("label"); head.className="mhead";
+    var cb=document.createElement("input"); cb.type="checkbox"; cb.checked=!!cfg.on;
+    cb.addEventListener("change",function(){ cfg.on=cb.checked; save(); renderMatchCards(); renderStatuses(); });
+    head.appendChild(cb);
+    var box=document.createElement("span");
+    box.innerHTML='<span class="t"></span><span class="d"></span>';
+    box.querySelector(".t").textContent=title;
+    box.querySelector(".d").textContent=desc;
+    head.appendChild(box);
+    card.appendChild(head);
+    if(cfg.on){
+      var body=document.createElement("div"); body.className="mbody";
+      body.appendChild(strokePicks(cfg,idxs));
+      card.appendChild(body);
+    }
+    return card;
+  }
+
+  function renderMatchCards(){
+    elMatchCards.innerHTML="";
+    var i;
+    for(i=1;i<=S.opps.length;i++){
+      (function(i){
+        elMatchCards.appendChild(matchCard(indCfg(i),"Sina vs "+pname(i),
+          "Mees mehe vastu kogu ringi vältel.",[0,i]));
+      })(i);
+    }
+    if(bestOK()){
+      elMatchCards.appendChild(matchCard(S.m.best,
+        "Sina vs "+allOpps().map(pname).join(" + "),
+        "Nemad koos sinu vastu — igal rajal loeb nende parim skoor.",[0].concat(allOpps())));
+    }
+    if(pairsOK()){
+      elMatchCards.appendChild(matchCard(S.m.pbest,"Kahesed tiimid — parim skoor",
+        "Sina + paariline teise kahe vastu; rajal loeb kummagi tiimi parem skoor.",[0].concat(allOpps())));
+      elMatchCards.appendChild(matchCard(S.m.psum,"Kahesed tiimid — löökide summa",
+        "Sina + paariline teise kahe vastu; rajal liidetakse tiimi mõlema mängija skoorid.",[0].concat(allOpps())));
+    }
+    renderPartner();
+    document.getElementById("noMatch").hidden=anyMatch();
+  }
+
+  function renderPartner(){
+    var show=teamGame();
+    elPartnerField.hidden=!show;
+    if(!show) return;
+    elPartnerPicks.innerHTML="";
+    S.opps.forEach(function(o,i){
+      var b=document.createElement("button"); b.type="button";
+      b.className="pick"+(partnerIdx()===i+1?" on":"");
+      b.textContent=o.name||("Mängija "+(i+1));
+      b.addEventListener("click",function(){ S.partner=i+1; save(); renderMatchCards(); renderStatuses(); });
+      elPartnerPicks.appendChild(b);
+    });
+    elTeamsLine.textContent=myTeam().map(pname).join(" + ")+"  vs  "+theirTeam().map(pname).join(" + ");
+  }
 
   function renderSetup(){
     document.getElementById("meName").value=S.me;
@@ -536,90 +536,28 @@
       var row=document.createElement("div"); row.className="orow";
       var inp=document.createElement("input");
       inp.type="text"; inp.value=o.name; inp.id="opp"+i; inp.autocomplete="off"; inp.placeholder="Mängija nimi";
-      inp.addEventListener("input",function(){ S.opps[i].name=inp.value; save(); renderPartner(); });
+      inp.addEventListener("input",function(){ S.opps[i].name=inp.value; save(); renderMatchCards(); });
       row.appendChild(inp);
-
-      var tg=document.createElement("label"); tg.className="toggle"+(o.stroke?" on":"");
-      var cb=document.createElement("input"); cb.type="checkbox"; cb.checked=!!o.stroke;
-      cb.addEventListener("change",function(){
-        S.opps[i].stroke=cb.checked; tg.className="toggle"+(cb.checked?" on":""); save(); renderStatuses();
-      });
-      tg.appendChild(cb); tg.appendChild(document.createTextNode("+1 rajal"));
-      row.appendChild(tg);
-
       if(S.opps.length>1){
         var rm=document.createElement("button"); rm.type="button"; rm.className="icbtn";
         rm.setAttribute("aria-label","Eemalda "+(o.name||"mängija")); rm.textContent="×";
         rm.addEventListener("click",function(){
           S.opps.splice(i,1); S.scores.splice(i+1,1);
-          S.modes=activeModes();
+          var ind={},k=1,old=S.m.ind; S.m.ind={};
+          for(k=1;k<=S.opps.length;k++) S.m.ind[String(k)]=old[String(k)]||{on:false,str:{}};
           if(S.partner>S.opps.length) S.partner=1;
+          if(!pairsOK()){ S.m.pbest.on=false; S.m.psum.on=false; }
+          if(!bestOK()) S.m.best.on=false;
           save(); renderSetup(); renderStatuses();
         });
         row.appendChild(rm);
       }
       elOppRows.appendChild(row);
     });
-
     document.getElementById("addOpp").hidden=S.opps.length>=3;
-
-    var n=S.opps.length;
-    elModeField.hidden=(n<2);
-    if(n>=2){
-      var nm=S.opps.map(function(o){return o.name||"mängija";});
-      var opts=[{v:"individual",t:"Mees mehe vastu",
-                 d:"Sinul on iga mängijaga oma matš — "+nm.join(" ja ")+" vastu eraldi seis."},
-                {v:"bestball",t:"Kõik koos sinu vastu",
-                 d:"Üks matš: igal rajal läheb sinu vastu arvesse "+nm.join(" / ")+" parim netoskoor."}];
-      if(n===3){
-        opts.push({v:"pairs-best",t:"Kahesed tiimid — parim skoor",
-                   d:"Sina + paariline teise kahe vastu; igal rajal loeb kummagi tiimi parem netoskoor."});
-        opts.push({v:"pairs-sum",t:"Kahesed tiimid — summa",
-                   d:"Sina + paariline teise kahe vastu; igal rajal liidetakse tiimi mõlema mängija netoskoorid."});
-      }
-      elModes.innerHTML="";
-      opts.forEach(function(op){
-        var on=(S.modes||[]).indexOf(op.v)>-1;
-        var lab=document.createElement("label"); lab.className="mode"+(on?" on":"");
-        var c=document.createElement("input"); c.type="checkbox"; c.value=op.v; c.checked=on;
-        c.addEventListener("change",function(){
-          var list=(S.modes||[]).filter(function(x){ return x!==op.v; });
-          if(c.checked) list.push(op.v);
-          S.modes=list.length?list:["individual"];
-          save(); renderSetup(); renderStatuses();
-        });
-        lab.appendChild(c);
-        var box=document.createElement("span");
-        box.innerHTML='<span class="mt"></span><span class="md"></span>';
-        box.querySelector(".mt").textContent=op.t;
-        box.querySelector(".md").textContent=op.d;
-        lab.appendChild(box);
-        elModes.appendChild(lab);
-      });
-      var hint=document.createElement("p"); hint.className="hint";
-      hint.textContent="Võid valida mitu korraga — näiteks tiimimäng ja samal ajal mees mehe vastu matšid. Iga valitud matši seis käib eraldi.";
-      elModes.appendChild(hint);
-    }
-    renderPartner();
-
+    renderMatchCards();
     document.getElementById("resumeRow").hidden=!S.started;
     document.getElementById("startBtn").textContent=S.started?"Alusta uut mängu (nullib skoorid)":"Alusta mängu";
-  }
-
-  function renderPartner(){
-    elPartnerField.hidden=!isPairs();
-    if(!isPairs()) return;
-    elPartnerPicks.innerHTML="";
-    S.opps.forEach(function(o,i){
-      var b=document.createElement("button"); b.type="button";
-      b.className="pick"+(partnerIdx()===i+1?" on":"");
-      b.textContent=o.name||("Mängija "+(i+1));
-      b.addEventListener("click",function(){ S.partner=i+1; save(); renderSetup(); renderStatuses(); });
-      elPartnerPicks.appendChild(b);
-    });
-    var n=names();
-    elTeamsLine.textContent=myTeam().map(function(i){return n[i]||"?";}).join(" + ")
-      +"  vs  "+theirTeam().map(function(i){return n[i]||"?";}).join(" + ");
   }
 
   /* ---------- statuses ---------- */
@@ -627,7 +565,7 @@
   function renderStatuses(){
     elStatuses.innerHTML="";
     if(!S.started) return;
-    allMatches().forEach(function(m){
+    matches().forEach(function(m){
       var d=document.createElement("div"); d.className="status";
       var who=document.createElement("div"); who.className="who";
       who.innerHTML="<span></span><small></small>";
@@ -642,30 +580,35 @@
     });
   }
 
-  /* ---------- play view ---------- */
+  /* ---------- play ---------- */
   var elPlayers=document.getElementById("players");
-  var elVerdicts=document.getElementById("verdicts");
+  var elMatchRows=document.getElementById("matchRows");
   var elBanners=document.getElementById("banners");
 
   function setScore(p,h,v){ S.scores[p][h]=v; save(); renderPlay(); renderStatuses(); }
 
-  function playerCard(p,h,counting,teamCls){
+  function primaryTeamMatch(){
+    var ms=matches(),i;
+    for(i=0;i<ms.length;i++) if(ms[i].kind==="pbest") return ms[i];
+    for(i=0;i<ms.length;i++) if(ms[i].kind==="best") return ms[i];
+    return null;
+  }
+
+  function playerCard(p,h,counts,teamCls){
     var card=document.createElement("div");
     card.className="pcard"+(teamCls?" "+teamCls:(p===0?" me":""));
     var head=document.createElement("div"); head.className="phead";
     var t=document.createElement("div"); t.className="pname"; t.textContent=pname(p);
     head.appendChild(t);
     if(p===0){ var t0=document.createElement("span"); t0.className="tag"; t0.textContent="sina"; head.appendChild(t0); }
-    if(strokeFor(p)){ var te=document.createElement("span"); te.className="tag edu"; te.textContent="+1 rajal"; head.appendChild(te); }
-    if(counting.indexOf(p)>-1){
+    if(counts.indexOf(p)>-1){
       var tc=document.createElement("span"); tc.className="tag counts";
-      tc.textContent=counting.length>1?"loeb · viik":"loeb";
-      head.appendChild(tc);
+      tc.textContent=counts.length>1?"loeb · viik":"loeb"; head.appendChild(tc);
     }
     var g=gross(p,h);
-    var nt=document.createElement("div"); nt.className="net";
-    nt.textContent = g==null?"—":(strokeFor(p)?g+" → neto "+(g-1):"neto "+g);
-    head.appendChild(nt);
+    var gr=document.createElement("div"); gr.className="gross";
+    gr.textContent=g==null?"—":g+" lööki";
+    head.appendChild(gr);
     card.appendChild(head);
 
     var chips=document.createElement("div"); chips.className="chips";
@@ -696,71 +639,73 @@
     var lab=document.createElement("span"); lab.textContent=title; d.appendChild(lab);
     var rule=document.createElement("span"); rule.className="rule"; d.appendChild(rule);
     var parts=[];
-    if(hasMode("pairs-best")){ var b=sideValue(idxs,h,"best"); parts.push("parim "+(b==null?"—":b)); }
-    if(hasMode("pairs-sum")){ var s=sideValue(idxs,h,"sum"); parts.push("summa "+(s==null?"—":s)); }
-    var chip=document.createElement("span"); chip.className="agg";
-    chip.textContent=parts.join(" · ");
+    if(S.m.pbest.on){ var b=sideVal(S.m.pbest,idxs,h,"best"); parts.push("parim "+(b==null?"—":b)); }
+    if(S.m.psum.on){ var s=sideVal(S.m.psum,idxs,h,"sum"); parts.push("summa "+(s==null?"—":s)); }
+    var chip=document.createElement("span"); chip.className="agg"; chip.textContent=parts.join(" · ");
     d.appendChild(chip);
     return d;
   }
 
   function renderPlayers(){
-    var h=S.hole;
+    var h=S.hole, pm=primaryTeamMatch();
     elPlayers.innerHTML="";
-    if(isPairs()){
-      var mine=myTeam(), theirs=theirTeam(), best=hasMode("pairs-best");
-      var cMine=best?countingIdxs(mine,h):[];
-      var cTheirs=best?countingIdxs(theirs,h):[];
+    if(teamGame()){
+      var mine=myTeam(), theirs=theirTeam();
+      var cM=S.m.pbest.on?counting(S.m.pbest,mine,h):[];
+      var cT=S.m.pbest.on?counting(S.m.pbest,theirs,h):[];
       elPlayers.appendChild(teamHeader("us","Meie tiim",mine,h));
-      mine.forEach(function(p){ elPlayers.appendChild(playerCard(p,h,cMine,"us")); });
+      mine.forEach(function(p){ elPlayers.appendChild(playerCard(p,h,cM,"us")); });
       elPlayers.appendChild(teamHeader("them","Vastastiim",theirs,h));
-      theirs.forEach(function(p){ elPlayers.appendChild(playerCard(p,h,cTheirs,"them")); });
+      theirs.forEach(function(p){ elPlayers.appendChild(playerCard(p,h,cT,"them")); });
       return;
     }
-    var counting=[];
-    if(hasMode("bestball")) counting=countingIdxs(theirTeam(),h);
-    displayOrder().forEach(function(p){ elPlayers.appendChild(playerCard(p,h,counting,null)); });
+    var counts=(pm&&pm.kind==="best")?counting(pm.cfg,pm.theirs,h):[];
+    displayOrder().forEach(function(p){ elPlayers.appendChild(playerCard(p,h,counts,null)); });
   }
 
-  function renderVerdicts(){
-    var h=S.hole, n=names();
-    elVerdicts.innerHTML="";
-    allMatches().forEach(function(m){
-      var r=m.per[h], a=sideValue(m.mine,h,m.agg), b=sideValue(m.theirs,h,m.agg);
-      var teamGame=m.mine.length>1||m.theirs.length>1;
-      var side=m.theirs.map(function(i){return n[i];}).join("/");
-      var d=document.createElement("div");
-      if(a==null||b==null){
-        d.className="verdict";
-        d.innerHTML="<b>"+esc(teamGame?"Tiimid":side)+"</b> · skoorid puudu";
-        elVerdicts.appendChild(d); return;
-      }
-      var score=" · "+a+" – "+b;
-      if(r===1){ d.className="verdict win"; d.innerHTML="Rada "+(teamGame?"meie tiimile":"sinule")+esc(score); }
-      else if(r===-1){ d.className="verdict loss"; d.innerHTML="Rada "+esc(teamGame?"vastastiimile":side+"-le")+esc(score); }
-      else { d.className="verdict half"; d.innerHTML="Poolitatud"+esc(score); }
-      elVerdicts.appendChild(d);
+  function valueText(m,idxs,h){
+    var v=sideVal(m.cfg,idxs,h,m.agg);
+    if(v==null) return "—";
+    if(m.agg==="sum"){
+      return idxs.map(function(p){ return String(netIn(m.cfg,p,h)); }).join("+")+" = "+v;
+    }
+    var win=counting(m.cfg,idxs,h);
+    if(idxs.length>1) return v+" ("+win.map(pname).join("/")+")";
+    var s=strOf(m.cfg,idxs[0]);
+    return s?gross(idxs[0],h)+"−"+s+" = "+v:String(v);
+  }
 
-      if(m.agg==="best" && teamGame){
-        var who=document.createElement("div"); who.className="verdict";
-        var parts=[];
-        if(m.mine.length>1) parts.push("meilt "+countingIdxs(m.mine,h).map(function(i){return n[i]+" "+gross(i,h)+(strokeFor(i)?" (neto "+net(i,h)+")":"");}).join(" ja "));
-        parts.push((m.mine.length>1?"neilt ":"arvesse läks ")+countingIdxs(m.theirs,h).map(function(i){return n[i]+" "+gross(i,h)+(strokeFor(i)?" (neto "+net(i,h)+")":"");}).join(" ja "));
-        who.textContent="Arvesse: "+parts.join(" · ");
-        elVerdicts.appendChild(who);
-      }
-      if(m.agg==="sum"){
-        var sm=document.createElement("div"); sm.className="verdict";
-        function terms(idxs){ return idxs.map(function(i){return String(net(i,h));}).join(" + "); }
-        sm.textContent="Summa: meie "+terms(m.mine)+" = "+a+" · nemad "+terms(m.theirs)+" = "+b;
-        elVerdicts.appendChild(sm);
-      }
+  function renderMatchRows(){
+    var h=S.hole;
+    elMatchRows.innerHTML="";
+    var ms=matches();
+    if(!ms.length){
+      var e=document.createElement("div"); e.className="mrow idle";
+      e.innerHTML='<div class="ml"><div class="mt">Ühtegi matši pole valitud</div><span class="ms">Ava Seaded ja märgi, mida mängite.</span></div>';
+      elMatchRows.appendChild(e); return;
+    }
+    ms.forEach(function(m){
+      var r=m.per[h];
+      var cls=r===1?"win":(r===-1?"loss":(r===0?"half":"idle"));
+      var row=document.createElement("div"); row.className="mrow "+cls;
+      var ml=document.createElement("div"); ml.className="ml";
+      ml.innerHTML='<div class="mt"></div><span class="ms"></span>';
+      ml.querySelector(".mt").textContent=m.label;
+      ml.querySelector(".ms").textContent=m.sub;
+      row.appendChild(ml);
+      var mv=document.createElement("div"); mv.className="mv";
+      mv.textContent=valueText(m,m.mine,h)+"  –  "+valueText(m,m.theirs,h);
+      row.appendChild(mv);
+      var res=document.createElement("div"); res.className="mres "+cls;
+      res.textContent = r===1?"rada sulle":(r===-1?"rada neile":(r===0?"poolitatud":"ootel"));
+      row.appendChild(res);
+      elMatchRows.appendChild(row);
     });
   }
 
   function renderBanners(){
     elBanners.innerHTML="";
-    allMatches().forEach(function(m){
+    matches().forEach(function(m){
       if(!m.decided) return;
       var b=document.createElement("div");
       b.className="banner"+(m.diff<0?" loss":(m.diff===0?" half":""));
@@ -771,40 +716,39 @@
     });
   }
 
+  function shortLabel(m){
+    if(m.kind==="pbest") return "Seis · tiimid (parim)";
+    if(m.kind==="psum") return "Seis · tiimid (summa)";
+    if(m.kind==="best") return "Seis · koos";
+    return "Seis · "+pname(m.theirs[0]);
+  }
+
   function renderCard(){
-    var n=names(), ms=allMatches(), tbl=document.getElementById("card");
-    var note=document.getElementById("cardNote"), h, i, p;
-    var order=displayOrder();
-    var markBest = hasMode("bestball") || hasMode("pairs-best");
-    var cnt=null;
-    if(markBest){
+    var ms=matches(), tbl=document.getElementById("card"), note=document.getElementById("cardNote");
+    var order=displayOrder(), h, i, p;
+    var pm=primaryTeamMatch(), cnt=null;
+    if(pm){
       cnt={};
-      order.forEach(function(p){ cnt[p]=[]; });
       for(h=0;h<HOLES;h++){
         var sets=[];
-        if(myTeam().length>1) sets.push(countingIdxs(myTeam(),h));
-        sets.push(countingIdxs(theirTeam(),h));
-        sets.forEach(function(set){ set.forEach(function(p){ cnt[p][h]=true; }); });
+        if(pm.mine.length>1) sets.push(counting(pm.cfg,pm.mine,h));
+        sets.push(counting(pm.cfg,pm.theirs,h));
+        sets.forEach(function(set){ set.forEach(function(p){ (cnt[p]=cnt[p]||[])[h]=true; }); });
       }
       note.hidden=false;
-      note.textContent="Ringiga on märgitud see tiimi skoor, mis rajal arvesse läks. Viigi korral on ring mõlemal."
-        +(hasMode("pairs-sum")?" Read „Meie summa“ ja „Nemad summa“ näitavad summa-matši tiimiskoori.":"");
-    } else if(hasMode("pairs-sum")){
-      note.hidden=false;
-      note.textContent="Summa-mängus loevad rajal mõlema tiimikaaslase löögid — read „Meie summa“ ja „Nemad summa“ näitavad tiimi netoskoori.";
+      note.textContent="Ring numbri ümber = see skoor läks „"+pm.label+"“ matšis arvesse.";
     } else { note.hidden=true; }
 
     var html="<thead><tr><th class='rowhead'>Rada</th>";
     for(h=1;h<=HOLES;h++) html+="<th"+(h-1===S.hole?" class='cur'":"")+">"+h+"</th>";
     html+="<th class='tot'>Σ</th></tr></thead><tbody>";
 
-    var mineSet=myTeam(), pairs=isPairs();
+    var mineSet=myTeam(), pairs=teamGame();
     for(i=0;i<order.length;i++){
       p=order[i];
-      var rowCls = pairs ? (mineSet.indexOf(p)>-1?"us":"them") : "";
+      var rowCls=pairs?(mineSet.indexOf(p)>-1?"us":"them"):"";
       var tot=0;
-      html+="<tr"+(rowCls?" class='"+rowCls+"'":"")+"><th class='rowhead'>"+esc(pname(p))
-           +(strokeFor(p)?" <span style='color:var(--level)'>+1</span>":"")+"</th>";
+      html+="<tr"+(rowCls?" class='"+rowCls+"'":"")+"><th class='rowhead'>"+esc(pname(p))+"</th>";
       for(h=0;h<HOLES;h++){
         var g=gross(p,h);
         if(g!=null) tot+=g;
@@ -815,12 +759,12 @@
       html+="<td class='tot'>"+(tot||"·")+"</td></tr>";
     }
 
-    if(hasMode("pairs-sum")){
+    if(pairs&&S.m.psum.on){
       [["Meie summa",myTeam()],["Nemad summa",theirTeam()]].forEach(function(pair){
         html+="<tr class='aggline'><th class='rowhead'>"+pair[0]+"</th>";
         var t=0;
         for(h=0;h<HOLES;h++){
-          var v=sideValue(pair[1],h,"sum");
+          var v=sideVal(S.m.psum,pair[1],h,"sum");
           if(v!=null) t+=v;
           html+="<td class='"+(v==null?"empty":"")+"'>"+(v==null?"·":v)+"</td>";
         }
@@ -830,25 +774,18 @@
 
     for(i=0;i<ms.length;i++){
       var m=ms[i], run=0;
-      html+="<tr class='resline'><th class='rowhead'>"+esc(shortLabel(m,n))+"</th>";
+      html+="<tr class='resline'><th class='rowhead'>"+esc(shortLabel(m))+"</th>";
       for(h=0;h<HOLES;h++){
         var r=m.per[h];
         if(r===null){ html+="<td class='empty'>·</td>"; continue; }
         run+=r;
-        html+="<td class='"+(run>0?"r-w":(run<0?"r-l":"r-h"))+"'>"
-             +(run>0?"+"+run:(run<0?String(run):"AS"))+"</td>";
+        html+="<td class='"+(run>0?"r-w":(run<0?"r-l":"r-h"))+"'>"+(run>0?"+"+run:(run<0?String(run):"AS"))+"</td>";
       }
       html+="<td class='tot "+(m.diff>0?"r-w":(m.diff<0?"r-l":"r-h"))+"'>"
            +(m.diff>0?"+"+m.diff:(m.diff<0?m.diff:"AS"))+"</td></tr>";
     }
     html+="</tbody>";
     tbl.innerHTML=html;
-  }
-  function shortLabel(m,n){
-    if(m.kind==="pairs-best") return "Seis · tiimid (parim)";
-    if(m.kind==="pairs-sum") return "Seis · tiimid (summa)";
-    if(m.kind==="bestball") return "Seis · koos";
-    return "Seis · "+(n[m.theirs[0]]||"vastane");
   }
 
   function renderPlay(){
@@ -857,38 +794,37 @@
     document.getElementById("holeSub").textContent=HOLES+" rajast · sisestatud "+done;
     document.getElementById("prevHole").disabled=S.hole===0;
     document.getElementById("nextHole").disabled=S.hole===HOLES-1;
-    renderPlayers(); renderVerdicts(); renderBanners(); renderCard();
+    renderPlayers(); renderMatchRows(); renderBanners(); renderCard();
   }
 
-  /* ---------- views ---------- */
-  function modeLabel(){
-    var names={ "pairs-best":"tiimid · parim", "pairs-sum":"tiimid · summa",
-                "bestball":"kõik koos", "individual":"mees mehe vastu" };
-    return activeModes().map(function(m){ return names[m]; }).join(" + ");
-  }
   function show(view){
     var play=view==="play";
     document.getElementById("playView").hidden=!play;
     document.getElementById("setupView").hidden=play;
     document.getElementById("setupBtn").hidden=!play;
+    var cnt=matches().length;
     document.getElementById("eyebrow").textContent=play
-      ? "Rajamäng · "+modeLabel()+" · 18 rada"
+      ? "Rajamäng · "+cnt+(cnt===1?" matš":" matši")+" · 18 rada"
       : "Rajamäng · 18 rada";
     if(play) renderPlay(); else renderSetup();
     renderStatuses();
   }
 
   /* ---------- wiring ---------- */
-  document.getElementById("meName").addEventListener("input",function(e){ S.me=e.target.value; save(); renderPartner(); });
+  document.getElementById("meName").addEventListener("input",function(e){
+    S.me=e.target.value; save(); renderMatchCards();
+  });
   document.getElementById("addOpp").addEventListener("click",function(){
     if(S.opps.length>=3) return;
-    S.opps.push({name:"",stroke:false});
+    S.opps.push({name:""});
     S.scores.push(new Array(HOLES).fill(null));
+    indCfg(S.opps.length);
     save(); renderSetup();
   });
   document.getElementById("startBtn").addEventListener("click",function(){
     S.me=document.getElementById("meName").value.trim()||"Sina";
     S.opps.forEach(function(o,i){ if(!o.name.trim()) o.name="Mängija "+(i+1); });
+    if(!anyMatch()){ document.getElementById("noMatch").hidden=false; return; }
     if(S.partner>S.opps.length) S.partner=1;
     S.scores=emptyScores(S.opps.length+1);
     S.hole=0; S.started=true; save(); show("play"); window.scrollTo(0,0);
@@ -908,8 +844,12 @@
   /* ---------- boot ---------- */
   function start(hot){
     S=(hot&&hot.S)||load()||blank();
-    if(!S.modes||!S.modes.length) S.modes=[S.mode||"individual"];
-    delete S.mode;
+    if(!S.m) S.m={ind:{},best:{on:false,str:{}},pbest:{on:false,str:{}},psum:{on:false,str:{}}};
+    ["best","pbest","psum"].forEach(function(k){
+      if(!S.m[k]) S.m[k]={on:false,str:{}};
+      if(!S.m[k].str) S.m[k].str={};
+    });
+    if(!S.m.ind) S.m.ind={};
     if(typeof S.partner!=="number") S.partner=1;
     if(!S.scores||S.scores.length!==S.opps.length+1) S.scores=emptyScores(S.opps.length+1);
     show(S.started?"play":"setup");
