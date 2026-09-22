@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Rajamängu skoorikaart</title>
-<meta name="description" content="Golfi rajamängu (match play) skoorikaart 18 rajale — jooksev seis, löögiedu ja kahesed tiimid.">
+<meta name="description" content="Golfi rajamängu (match play) skoorikaart 18 rajale — mitu matši korraga, löögiedu ja kahesed tiimid.">
 <meta name="theme-color" content="#EDF1EA" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0D1411" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -24,7 +24,7 @@
   img{max-width:100%}
   [hidden]{display:none!important}
   button{-webkit-tap-highlight-color:transparent}
-  .chip,.nav,.pick,.btn,.icbtn,.chip.more{-webkit-user-select:none;user-select:none}
+  .chip,.nav,.pick,.btn,.icbtn{-webkit-user-select:none;user-select:none}
 </style>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
@@ -351,7 +351,7 @@
       </div>
 
       <div class="field" id="modeField" hidden>
-        <label class="lbl">Mängu vorm</label>
+        <label class="lbl">Mängu vormid — võid valida mitu</label>
         <div class="modes" id="modes"></div>
       </div>
 
@@ -396,7 +396,7 @@
   var S=null;
 
   function blank(){
-    return {me:"Gunnar", opps:[{name:"Aaron",stroke:false}], mode:"individual",
+    return {me:"Gunnar", opps:[{name:"Aaron",stroke:false}], modes:["individual"],
             partner:1, scores:[], hole:0, started:false};
   }
   function emptyScores(n){
@@ -420,13 +420,20 @@
   function gross(p,h){ var r=S.scores[p]; return r?r[h]:null; }
   function net(p,h){ var g=gross(p,h); return g==null?null:g-strokeFor(p); }
 
-  function mode(){
-    var m=S.mode, n=S.opps.length;
-    if(n<2) return "individual";
-    if((m==="pairs-best"||m==="pairs-sum") && n!==3) return "individual";
-    return m;
+  var MODE_ORDER=["pairs-best","pairs-sum","bestball","individual"];
+  function activeModes(){
+    var n=S.opps.length, want=(S.modes||[]);
+    var ms=MODE_ORDER.filter(function(m){
+      if(want.indexOf(m)<0) return false;
+      if(m==="individual") return true;
+      if(m==="bestball") return n>=2;
+      return n===3;
+    });
+    if(!ms.length) ms=["individual"];
+    return ms;
   }
-  function isPairs(){ var m=mode(); return m==="pairs-best"||m==="pairs-sum"; }
+  function hasMode(m){ return activeModes().indexOf(m)>-1; }
+  function isPairs(){ return hasMode("pairs-best")||hasMode("pairs-sum"); }
   function partnerIdx(){ var p=S.partner; return (p>=1 && p<=S.opps.length)?p:1; }
   function myTeam(){ return isPairs()?[0,partnerIdx()]:[0]; }
   function theirTeam(){
@@ -434,7 +441,6 @@
     for(i=1;i<=S.opps.length;i++) if(!(isPairs() && i===partnerIdx())) out.push(i);
     return out;
   }
-  function aggOf(){ return mode()==="pairs-sum"?"sum":"best"; }
 
   function sideValue(idxs,h,agg){
     var sum=0,best=null,i,v;
@@ -477,24 +483,28 @@
   }
 
   function allMatches(){
-    var n=names(), m=mode(), out=[], i;
-    if(isPairs()){
-      var mine=myTeam(), theirs=theirTeam();
-      out.push(matchState(mine,theirs,aggOf(),
-        mine.map(function(i){return n[i];}).join(" + ")+" vs "+theirs.map(function(i){return n[i];}).join(" + "),
-        aggOf()==="sum"?"tiimi löökide summa rajal":"tiimi parim skoor rajal"));
-      return out;
-    }
-    if(m==="bestball"){
-      var idxs=[]; for(i=1;i<n.length;i++) idxs.push(i);
-      out.push(matchState([0],idxs,"best",
-        "Sina vs "+idxs.map(function(i){return n[i];}).join(" + "),"parim skoor rajal"));
-      return out;
-    }
-    for(i=1;i<n.length;i++){
-      out.push(matchState([0],[i],"best","Sina vs "+n[i],
-        S.opps[i-1].stroke?"+1 lööki rajal":"ilma eduga"));
-    }
+    var n=names(), out=[];
+    activeModes().forEach(function(m){
+      var st,i;
+      if(m==="pairs-best"||m==="pairs-sum"){
+        var mine=myTeam(), theirs=theirTeam(), agg=(m==="pairs-sum"?"sum":"best");
+        st=matchState(mine,theirs,agg,
+          mine.map(function(i){return n[i];}).join(" + ")+" vs "+theirs.map(function(i){return n[i];}).join(" + "),
+          agg==="sum"?"tiimid · löökide summa rajal":"tiimid · parim skoor rajal");
+        st.kind=m; out.push(st);
+      } else if(m==="bestball"){
+        var idxs=[]; for(i=1;i<n.length;i++) idxs.push(i);
+        st=matchState([0],idxs,"best",
+          "Sina vs "+idxs.map(function(i){return n[i];}).join(" + "),"nende parim skoor rajal");
+        st.kind=m; out.push(st);
+      } else {
+        for(i=1;i<n.length;i++){
+          st=matchState([0],[i],"best","Sina vs "+n[i],
+            S.opps[i-1].stroke?"mees mehe vastu · +1 lööki rajal":"mees mehe vastu");
+          st.kind="individual"; out.push(st);
+        }
+      }
+    });
     return out;
   }
 
@@ -542,8 +552,7 @@
         rm.setAttribute("aria-label","Eemalda "+(o.name||"mängija")); rm.textContent="×";
         rm.addEventListener("click",function(){
           S.opps.splice(i,1); S.scores.splice(i+1,1);
-          if(S.opps.length<2) S.mode="individual";
-          if(S.opps.length!==3 && (S.mode==="pairs-best"||S.mode==="pairs-sum")) S.mode="individual";
+          S.modes=activeModes();
           if(S.partner>S.opps.length) S.partner=1;
           save(); renderSetup(); renderStatuses();
         });
@@ -558,7 +567,7 @@
     elModeField.hidden=(n<2);
     if(n>=2){
       var nm=S.opps.map(function(o){return o.name||"mängija";});
-      var opts=[{v:"individual",t:"Eraldi matšid",
+      var opts=[{v:"individual",t:"Mees mehe vastu",
                  d:"Sinul on iga mängijaga oma matš — "+nm.join(" ja ")+" vastu eraldi seis."},
                 {v:"bestball",t:"Kõik koos sinu vastu",
                  d:"Üks matš: igal rajal läheb sinu vastu arvesse "+nm.join(" / ")+" parim netoskoor."}];
@@ -570,10 +579,16 @@
       }
       elModes.innerHTML="";
       opts.forEach(function(op){
-        var lab=document.createElement("label"); lab.className="mode"+(mode()===op.v?" on":"");
-        var r=document.createElement("input"); r.type="radio"; r.name="mode"; r.value=op.v; r.checked=mode()===op.v;
-        r.addEventListener("change",function(){ S.mode=op.v; save(); renderSetup(); renderStatuses(); });
-        lab.appendChild(r);
+        var on=(S.modes||[]).indexOf(op.v)>-1;
+        var lab=document.createElement("label"); lab.className="mode"+(on?" on":"");
+        var c=document.createElement("input"); c.type="checkbox"; c.value=op.v; c.checked=on;
+        c.addEventListener("change",function(){
+          var list=(S.modes||[]).filter(function(x){ return x!==op.v; });
+          if(c.checked) list.push(op.v);
+          S.modes=list.length?list:["individual"];
+          save(); renderSetup(); renderStatuses();
+        });
+        lab.appendChild(c);
         var box=document.createElement("span");
         box.innerHTML='<span class="mt"></span><span class="md"></span>';
         box.querySelector(".mt").textContent=op.t;
@@ -581,6 +596,9 @@
         lab.appendChild(box);
         elModes.appendChild(lab);
       });
+      var hint=document.createElement("p"); hint.className="hint";
+      hint.textContent="Võid valida mitu korraga — näiteks tiimimäng ja samal ajal mees mehe vastu matšid. Iga valitud matši seis käib eraldi.";
+      elModes.appendChild(hint);
     }
     renderPartner();
 
@@ -673,13 +691,15 @@
     return card;
   }
 
-  function teamHeader(cls,title,idxs,h,agg){
+  function teamHeader(cls,title,idxs,h){
     var d=document.createElement("div"); d.className="teamhead "+cls;
     var lab=document.createElement("span"); lab.textContent=title; d.appendChild(lab);
     var rule=document.createElement("span"); rule.className="rule"; d.appendChild(rule);
-    var v=sideValue(idxs,h,agg);
+    var parts=[];
+    if(hasMode("pairs-best")){ var b=sideValue(idxs,h,"best"); parts.push("parim "+(b==null?"—":b)); }
+    if(hasMode("pairs-sum")){ var s=sideValue(idxs,h,"sum"); parts.push("summa "+(s==null?"—":s)); }
     var chip=document.createElement("span"); chip.className="agg";
-    chip.textContent=(agg==="sum"?"summa ":"parim ")+(v==null?"—":v);
+    chip.textContent=parts.join(" · ");
     d.appendChild(chip);
     return d;
   }
@@ -688,17 +708,17 @@
     var h=S.hole;
     elPlayers.innerHTML="";
     if(isPairs()){
-      var mine=myTeam(), theirs=theirTeam(), agg=aggOf();
-      var cMine=agg==="best"?countingIdxs(mine,h):[];
-      var cTheirs=agg==="best"?countingIdxs(theirs,h):[];
-      elPlayers.appendChild(teamHeader("us","Meie tiim",mine,h,agg));
+      var mine=myTeam(), theirs=theirTeam(), best=hasMode("pairs-best");
+      var cMine=best?countingIdxs(mine,h):[];
+      var cTheirs=best?countingIdxs(theirs,h):[];
+      elPlayers.appendChild(teamHeader("us","Meie tiim",mine,h));
       mine.forEach(function(p){ elPlayers.appendChild(playerCard(p,h,cMine,"us")); });
-      elPlayers.appendChild(teamHeader("them","Vastastiim",theirs,h,agg));
+      elPlayers.appendChild(teamHeader("them","Vastastiim",theirs,h));
       theirs.forEach(function(p){ elPlayers.appendChild(playerCard(p,h,cTheirs,"them")); });
       return;
     }
     var counting=[];
-    if(mode()==="bestball") counting=countingIdxs(theirTeam(),h);
+    if(hasMode("bestball")) counting=countingIdxs(theirTeam(),h);
     displayOrder().forEach(function(p){ elPlayers.appendChild(playerCard(p,h,counting,null)); });
   }
 
@@ -755,7 +775,7 @@
     var n=names(), ms=allMatches(), tbl=document.getElementById("card");
     var note=document.getElementById("cardNote"), h, i, p;
     var order=displayOrder();
-    var markBest = (mode()==="bestball") || (mode()==="pairs-best");
+    var markBest = hasMode("bestball") || hasMode("pairs-best");
     var cnt=null;
     if(markBest){
       cnt={};
@@ -767,8 +787,9 @@
         sets.forEach(function(set){ set.forEach(function(p){ cnt[p][h]=true; }); });
       }
       note.hidden=false;
-      note.textContent="Ringiga on märgitud see tiimi skoor, mis rajal arvesse läks. Viigi korral on ring mõlemal.";
-    } else if(mode()==="pairs-sum"){
+      note.textContent="Ringiga on märgitud see tiimi skoor, mis rajal arvesse läks. Viigi korral on ring mõlemal."
+        +(hasMode("pairs-sum")?" Read „Meie summa“ ja „Nemad summa“ näitavad summa-matši tiimiskoori.":"");
+    } else if(hasMode("pairs-sum")){
       note.hidden=false;
       note.textContent="Summa-mängus loevad rajal mõlema tiimikaaslase löögid — read „Meie summa“ ja „Nemad summa“ näitavad tiimi netoskoori.";
     } else { note.hidden=true; }
@@ -794,7 +815,7 @@
       html+="<td class='tot'>"+(tot||"·")+"</td></tr>";
     }
 
-    if(mode()==="pairs-sum"){
+    if(hasMode("pairs-sum")){
       [["Meie summa",myTeam()],["Nemad summa",theirTeam()]].forEach(function(pair){
         html+="<tr class='aggline'><th class='rowhead'>"+pair[0]+"</th>";
         var t=0;
@@ -824,8 +845,9 @@
     tbl.innerHTML=html;
   }
   function shortLabel(m,n){
-    if(m.mine.length>1) return "Seis · tiimid";
-    if(m.theirs.length>1) return "Seis · koos";
+    if(m.kind==="pairs-best") return "Seis · tiimid (parim)";
+    if(m.kind==="pairs-sum") return "Seis · tiimid (summa)";
+    if(m.kind==="bestball") return "Seis · koos";
     return "Seis · "+(n[m.theirs[0]]||"vastane");
   }
 
@@ -840,11 +862,9 @@
 
   /* ---------- views ---------- */
   function modeLabel(){
-    var m=mode();
-    if(m==="pairs-best") return "kahesed tiimid · parim skoor";
-    if(m==="pairs-sum") return "kahesed tiimid · summa";
-    if(m==="bestball") return "kõik koos sinu vastu";
-    return "eraldi matšid";
+    var names={ "pairs-best":"tiimid · parim", "pairs-sum":"tiimid · summa",
+                "bestball":"kõik koos", "individual":"mees mehe vastu" };
+    return activeModes().map(function(m){ return names[m]; }).join(" + ");
   }
   function show(view){
     var play=view==="play";
@@ -888,6 +908,8 @@
   /* ---------- boot ---------- */
   function start(hot){
     S=(hot&&hot.S)||load()||blank();
+    if(!S.modes||!S.modes.length) S.modes=[S.mode||"individual"];
+    delete S.mode;
     if(typeof S.partner!=="number") S.partner=1;
     if(!S.scores||S.scores.length!==S.opps.length+1) S.scores=emptyScores(S.opps.length+1);
     show(S.started?"play":"setup");
