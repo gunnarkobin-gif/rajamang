@@ -227,6 +227,7 @@
   .btnrow{display:flex;gap:8px;margin-top:14px}
   .hint{font-size:12px;color:var(--faint);margin:8px 0 0}
   .warn{font-size:12.5px;color:var(--flag);margin:8px 0 0;font-weight:600}
+  #newGame.armed{border-color:var(--flag);color:var(--flag);background:var(--flag-soft)}
   .addmore{background:none;border:1px dashed var(--line-strong);border-radius:10px;padding:9px;width:100%;
     cursor:pointer;font-size:13px;color:var(--muted);font-weight:600}
   .addmore:hover{border-color:var(--accent);color:var(--accent)}
@@ -837,7 +838,31 @@
   });
   document.getElementById("backBtn").addEventListener("click",function(){ show("play"); });
   document.getElementById("setupBtn").addEventListener("click",function(){ show("setup"); window.scrollTo(0,0); });
-  document.getElementById("newGame").addEventListener("click",function(){ show("setup"); window.scrollTo(0,0); });
+  /* Uus mäng: kaasmängijad, matšid ja skoorid tühjaks, sinu nimi jääb.
+     Pooleli ringi puhul küsib nupp teise puudutusega kinnitust. */
+  var elNew=document.getElementById("newGame"), newArmed=null;
+  function roundInProgress(){
+    var any=false,all=true,h,p;
+    for(h=0;h<HOLES;h++) for(p=0;p<S.scores.length;p++){
+      if(S.scores[p]&&S.scores[p][h]!=null) any=true; else all=false;
+    }
+    return any&&!all;
+  }
+  function disarmNew(){ if(newArmed){ clearTimeout(newArmed); newArmed=null; } elNew.textContent="Uus mäng"; elNew.classList.remove("armed"); }
+  function newGame(){
+    disarmNew();
+    var me=S.me;
+    S=blank(); S.me=me; S.opps=[{name:""}];
+    S.scores=emptyScores(2);
+    save(); show("setup"); window.scrollTo(0,0);
+    var f=document.getElementById("opp0"); if(f) f.focus();
+  }
+  elNew.addEventListener("click",function(){
+    if(newArmed||!roundInProgress()){ newGame(); return; }
+    elNew.textContent="Ring on pooleli — puuduta uuesti, et alustada uut";
+    elNew.classList.add("armed");
+    newArmed=setTimeout(disarmNew,4000);
+  });
   document.getElementById("prevHole").addEventListener("click",function(){ if(S.hole>0){S.hole--;save();renderPlay();} });
   document.getElementById("nextHole").addEventListener("click",function(){ if(S.hole<HOLES-1){S.hole++;save();renderPlay();} });
   document.addEventListener("keydown",function(e){
