@@ -889,11 +889,37 @@
 })();
 </script>
 <script>
-if("serviceWorker" in navigator){
-  window.addEventListener("load",function(){
-    navigator.serviceWorker.register("sw.js").catch(function(){});
-  });
-}
+/* Versioon: muuda iga uuenduse juures, siis laeb telefon uue versiooni ise. */
+var APP_VERSION="2026-11-06.3";
+(function(){
+  var reg=null, checking=false;
+  if("serviceWorker" in navigator){
+    window.addEventListener("load",function(){
+      navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(function(r){ reg=r; }).catch(function(){});
+    });
+  }
+  /* iPhone'i avalehe äpp ei lae end uuesti, kui selle sulged ja avad — kontrollime ise. */
+  function check(){
+    if(checking||navigator.onLine===false) return;
+    checking=true;
+    if(reg) reg.update().catch(function(){});
+    fetch("index.html?v="+Date.now(),{cache:"no-store"})
+      .then(function(r){ return r.ok?r.text():""; })
+      .then(function(t){
+        var m=t.match(/APP_VERSION="([^"]+)"/);
+        if(m&&m[1]!==APP_VERSION){
+          var k="rajamang.reloadedFor";
+          try{ if(sessionStorage.getItem(k)===m[1]) return; sessionStorage.setItem(k,m[1]); }catch(e){}
+          location.reload();
+        }
+      })
+      .catch(function(){})
+      .then(function(){ checking=false; });
+  }
+  window.addEventListener("load",check);
+  document.addEventListener("visibilitychange",function(){ if(document.visibilityState==="visible") check(); });
+  window.addEventListener("pageshow",function(e){ if(e.persisted) check(); });
+})();
 </script>
 </body>
 </html>

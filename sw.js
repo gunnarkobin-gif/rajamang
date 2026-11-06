@@ -1,5 +1,5 @@
 /* Rajamängu skoorikaart — offline cache */
-var CACHE = "rajamang-v5";
+var CACHE = "rajamang-v6";
 var ASSETS = ["./", "index.html", "manifest.webmanifest", "icon-192.png", "icon-512.png", "apple-touch-icon.png"];
 
 self.addEventListener("install", function(e){
@@ -22,9 +22,12 @@ self.addEventListener("fetch", function(e){
   var url = new URL(req.url);
   if(url.origin !== self.location.origin) return;
   e.respondWith(
-    fetch(req).then(function(res){
-      var copy = res.clone();
-      caches.open(CACHE).then(function(c){ c.put(req, copy); });
+    /* no-cache: always revalidate with GitHub instead of the phone's 10-minute HTTP cache */
+    fetch(req, {cache: "no-cache"}).then(function(res){
+      if(res.ok){
+        var copy = res.clone();
+        caches.open(CACHE).then(function(c){ c.put(req, copy); });
+      }
       return res;
     }).catch(function(){
       return caches.match(req).then(function(hit){
