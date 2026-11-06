@@ -16,11 +16,13 @@
 <link rel="icon" href="icon-192.png" sizes="192x192">
 <style>
   html{
+    -webkit-text-size-adjust:100%;text-size-adjust:100%;
     padding-top:env(safe-area-inset-top,0px);
     padding-bottom:env(safe-area-inset-bottom,0px);
     background:#EDF1EA;
   }
   @media (prefers-color-scheme: dark){ html{background:#0D1411} }
+  body{overflow-x:clip}
   img{max-width:100%}
   [hidden]{display:none!important}
   button{-webkit-tap-highlight-color:transparent}
@@ -146,14 +148,15 @@
   .chip.more{font-size:12px}
 
   /* per-hole match rows */
-  .mrow{display:flex;align-items:center;gap:10px;background:var(--surface);
+  .mrow{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;background:var(--surface);
     border:1px solid var(--line);border-left-width:3px;border-radius:12px;
     padding:9px 11px;margin-bottom:8px;box-shadow:var(--shadow)}
   .mrow.win{border-left-color:var(--accent)}
   .mrow.loss{border-left-color:var(--flag)}
   .mrow.half{border-left-color:var(--level)}
   .mrow.idle{border-left-color:var(--line-strong)}
-  .mrow .ml{flex:1;min-width:0}
+  .mrow .ml{flex:1 1 150px;min-width:0}
+  .mrow .mright{display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;gap:6px 10px;margin-left:auto;min-width:0;max-width:100%}
   .mrow .mt{font-size:13.5px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .mrow .ms{font-size:11.5px;color:var(--faint);display:block}
   .mrow .mv{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;
@@ -191,7 +194,7 @@
   label.lbl{display:block;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
     text-transform:uppercase;letter-spacing:.12em;color:var(--faint);margin-bottom:6px}
   input[type=text]{width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--line-strong);
-    background:var(--surface-2);color:var(--ink);font-family:inherit;font-size:15px}
+    background:var(--surface-2);color:var(--ink);font-family:inherit;font-size:16px}
   input[type=text]:focus-visible{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
   .orow{display:flex;gap:8px;align-items:center;margin-bottom:8px}
   .orow input{flex:1}
@@ -695,11 +698,13 @@
       row.appendChild(ml);
       var mv=document.createElement("div"); mv.className="mv";
       mv.textContent=valueText(m,m.mine,h)+"  –  "+valueText(m,m.theirs,h);
-      row.appendChild(mv);
+      var right=document.createElement("div"); right.className="mright";
+      right.appendChild(mv);
       var res=document.createElement("div"); res.className="mres "+cls;
       var us=m.mine.length>1?"meile":"sulle";
       res.textContent = r===1?("rada "+us):(r===-1?"rada neile":(r===0?"poolitatud":"ootel"));
-      row.appendChild(res);
+      right.appendChild(res);
+      row.appendChild(right);
       elMatchRows.appendChild(row);
     });
   }
